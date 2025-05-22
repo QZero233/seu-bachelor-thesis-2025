@@ -16,7 +16,7 @@
 % The Current Maintainer of this work is Haoqing Xu.
 %
 % Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2022
-\documentclass{seuthesis-2022}
+\documentclass[mac]{seuthesis-2022}
 
 \title{}{（此栏可删除）}
 \author{}
@@ -26,10 +26,26 @@
 \supervisor{}
 \period{}
 
+% 如果使用了AI
+\useAi % 如果没有使用AI，注释掉这一行即可
+\useAIForText  %对应 文本生成及内容修改 复选框
+\useAIForData  %对应 数据、图表分析、代码调试 复选框
+\useAIForOther %对应 其他：请具体说明 复选框
+\useAITools{DeepSeek-V3} % 工具，版本号
+\useAIProcedure{示例：输入哪些关键词或主题，指导 AI 工具生成或修改了内容} % 使用过程
+\useAIPages{第二章1.1（P5）} % 章节（页码）
+
+% 如果没使用AI
+\notUseAIStatement{填写示例：在本人毕业论文（设计）的撰写过程中，未使用任何生成式人工智能辅助工具。所有内容均由本人独立撰写和创作完成，能够确保学术诚信，不存在任何AI生成的内容。}
+
+% AI情况说明表导师意见部分
+\useAISupervisorAttitude{意见：}
+
 \begin{document}
 
 \maketitle
 \makedeclaration
+\makeai % 创建AI情况说明表
 
 \frontmatter
 \begin{abstract}[zh]
