@@ -411,6 +411,32 @@
 %   \end{abstract}
 % \end{example}
 % 
+
+% \subsection{AI工具使用情况说明表}
+% 该表格有2个选项，分别是使用了AI与未使用AI
+% 
+% 如果选择使用了AI，那么需要填写的信息如下示例
+% \begin{example}
+% \useAI % 表示选择使用了AI工具
+% \useAIForText  %对应 文本生成及内容修改 复选框
+% \useAIForData  %对应 数据、图表分析、代码调试 复选框
+% \useAIForOther %对应 其他：请具体说明 复选框
+% \useAITools{DeepSeek-V3} % 工具，版本号
+% \useAIProcedure{示例：输入哪些关键词或主题，指导 AI 工具生成或修改了内容} % 使用过程
+% \useAIPages{第二章1.1（P5）} % 章节（页码）
+% \useAISupervisorAttitude{意见：} % 对应 导师意见部分
+% \end{example}
+% 
+% 如果选择未使用AI，那么则按照如下示例填写
+% \begin{example}
+% %不使用 \useAI 就表示选择了未使用AI工具
+% \notUseAIStatement{填写示例：在本人毕业论文（设计）的撰写过程中，
+% 未使用任何生成式人工智能辅助工具。所有内容均由本人独立撰写和创作完成，能够确保学术诚信，
+% 不存在任何AI生成的内容。} % 对应 表格中的声明部分
+% \useAISupervisorAttitude{意见：} % 对应 导师意见部分
+% \end{example}
+
+% 
 % \section{图表使用帮助}
 % \subsection{取消浮动}\label{sec:float-help-cancel-float}
 % 有时为了内容的连续性，需要取消 |figure| 和 |table| 等环境的浮动效果，本文档使用了 |float| 宏包，其提供了 |[H]| 选项用于取消浮动，如
@@ -736,6 +762,23 @@
 \newcommand*{\seut@const@str@bibname}{参考文献}
 \newcommand*{\seut@const@str@acknowledgename}{致\seut@space{2}谢}
 %    \end{macrocode}
+%    
+% 定义AI工具表字段
+%    \begin{macrocode}
+\newif\ifseut@ai@use@ai
+\newif\ifseut@ai@use@for@text
+\newif\ifseut@ai@use@for@data
+\newif\ifseut@ai@use@for@other
+
+\newcommand*{\seut@var@str@ai@use@tools}{}
+\newcommand*{\seut@var@str@ai@use@procedure}{}
+\newcommand*{\seut@var@str@ai@use@pages}{}
+
+\newcommand*{\seut@var@str@ai@not@use@statement}{}
+
+\newcommand*{\seut@var@str@ai@supervisor@attitude}{}
+%    \end{macrocode}
+% 
 % 定义字体名称，包括宋体、黑体、仿宋、楷体四种中文字体以及衬线、无衬线、等宽三种英文字体。
 % 
 % 定义方正字体名。
@@ -1505,6 +1548,94 @@
 %    \begin{macrocode}
   \chapter{\seut@var@str@abstractname}
 }{}
+%    \end{macrocode}
+% \end{macro}
+
+% \subsection{AI工具表}
+% \begin{macro}{\makeai}
+% 命令用于生成AI工具使用情况说明表（简称AI工具表）
+% 
+% 表格中的论文题目等字段会自动使用之前设置的值
+% 
+% 首先定义一些命令用于设置表格中的字段
+%    \begin{macrocode}
+
+\newcommand{\useAI}{\seut@ai@use@aitrue}
+
+\newcommand{\notUseAIStatement}[1]{\renewcommand*{\seut@var@str@ai@not@use@statement}{#1}}
+
+\newcommand{\useAITools}[1]{\renewcommand*{\seut@var@str@ai@use@tools}{#1}}
+\newcommand{\useAIProcedure}[1]{\renewcommand*{\seut@var@str@ai@use@procedure}{#1}}
+\newcommand{\useAIPages}[1]{\renewcommand*{\seut@var@str@ai@use@pages}{#1}}
+\newcommand{\useAIForText}{\seut@ai@use@for@texttrue}
+\newcommand{\useAIForData}{\seut@ai@use@for@datatrue}
+\newcommand{\useAIForOther}{\seut@ai@use@for@othertrue}
+
+\newcommand{\useAISupervisorAttitude}[1]{\renewcommand*\seut@var@str@ai@supervisor@attitude{#1}}
+
+\newcommand{\checkboxempty}{\ensuremath{\square}}
+\newcommand{\checkboxfull}{\makebox[0pt][l]{$\checkmark$}$\square$}
+%    \end{macrocode}
+% 然后按照模板绘制AI工具表
+%    \begin{macrocode}
+\newcommand{\makeai}{
+\begin{center}
+
+\textbf{\heiti\fontsize{18pt}{18pt}\selectfont 东南大学本科毕业论文（设计）AI 工具使用情况说明表}
+\vspace*{10pt}
+
+\begin{tabular}{|m{2.76cm}|m{3.91cm}|m{4.86cm}|m{3.66cm}|}
+\hline
+
+\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 课题名称} & \multicolumn{3}{c|}{\seut@var@str@titlepage@title} \\ \hline
+
+\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 学号} & \seut@var@str@titlepage@studentnum & \centering \textbf{\heiti\fontsize{15pt}{15pt}\selectfont 姓 \quad 名} & \seut@var@str@titlepage@author \\ \hline
+
+\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 是否使用生成式人工智能} & \multicolumn{3}{c|}{
+  \makebox[0pt][c]{
+    \parbox{\dimexpr\linewidth/3\relax}{
+      \centering
+      \ifseut@ai@use@ai
+        \checkboxfull
+      \else
+        \checkboxempty 
+      \fi
+      是
+      }
+    \parbox{\dimexpr\linewidth/3\relax}{
+      \centering 
+      \ifseut@ai@use@ai
+        \checkboxempty
+      \else
+        \checkboxfull
+      \fi
+      否
+      }
+  }
+  } \\ \hline
+
+\ifseut@ai@use@ai
+\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 工具、版本号} & \textbf{\heiti\fontsize{12pt}{12pt}\selectfont 使用范围} & \textbf{\heiti\fontsize{12pt}{12pt}\selectfont 使用过程} & \textbf{\heiti\fontsize{12pt}{12pt}\selectfont 章节（页码）} \\ \hline
+\multirow{3}{2.76cm}{\seut@var@str@ai@use@tools}
+ & \ifseut@ai@use@for@text \checkboxfull \else \checkboxempty \fi 文本生成及内容修改 & \multirow{3}{4.86cm}{\seut@var@str@ai@use@procedure } & \multirow{3}{3.66cm}{\seut@var@str@ai@use@pages } \\
+ & \ifseut@ai@use@for@data \checkboxfull \else \checkboxempty \fi 数据、图表分析、代码调试 & & \\ 
+ & \ifseut@ai@use@for@other \checkboxfull \else \checkboxempty \fi 其他：请具体说明 & & \\ \hline
+\else
+\multicolumn{4}{|l|}{\parbox[t]{15.19cm}{\seut@var@str@ai@not@use@statement \vspace*{\baselineskip}}} \\ \hline
+\fi
+
+\multirow{4}{*}{\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 学生诚信申明}} & \multicolumn{3}{l|}{\parbox[t]{12.43cm}{本人郑重声明，上述关于生成式人工智能使用情况的陈述真实无误，已对使用此类技术的所有细节进行了全面且诚实的报告。本人深知学术诚信的重要性，如有任何隐瞒或虚假之处，愿承担学术不端行为带来的相关惩处。\vspace*{\baselineskip}}} \\ 
+& \multicolumn{3}{r|}{学生签名:\hspace{3.5245cm}\mbox{}} \\ 
+& \multicolumn{3}{r|}{年\hspace{0.9275cm}月\hspace{0.9275cm}日\hspace{0.3cm}\mbox{}} \\ \hline
+
+\multirow{3}{*}{\textbf{\heiti\fontsize{12pt}{12pt}\selectfont 指导教师意见}} & \multicolumn{3}{l|}{\parbox[t]{12.43cm}{\seut@var@str@ai@supervisor@attitude \vspace*{\baselineskip}}} \\ 
+& \multicolumn{3}{r|}{指导教师签名:\hspace{3.5245cm}\mbox{}} \\ 
+& \multicolumn{3}{r|}{年\hspace{0.9275cm}月\hspace{0.9275cm}日\hspace{0.3cm}\mbox{}} \\ \hline
+
+\end{tabular}
+\end{center}
+\newpage
+}
 %    \end{macrocode}
 % \end{macro}
 
