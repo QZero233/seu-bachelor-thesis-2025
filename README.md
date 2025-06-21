@@ -16,7 +16,7 @@
 
 ## 使用方法
 
-文档使用方法的详细介绍请参见[样例论文](https://github.com/QZero233/seu-bachelor-thesis-2025/master/sample_thesis.pdf)和[使用手册](https://github.com/QZero233/seu-bachelor-thesis-2025/master/使用手册/seuthesis-2022-manual-1.1.0.pdf)。
+文档使用方法的详细介绍请参见[样例论文](https://github.com/QZero233/seu-bachelor-thesis-2025/blob/main/sample_thesis.pdf)和[使用手册](https://github.com/QZero233/seu-bachelor-thesis-2025/blob/main/使用手册/seuthesis-2022-manual-1.1.0.pdf)。
 
 - Windows下：
 
