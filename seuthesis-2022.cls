@@ -124,6 +124,7 @@
 \RequirePackage{xeCJKfntef}
 \RequirePackage{doc}
 \RequirePackage{pdfpages}
+\RequirePackage{wallpaper}
 
 \geometry{
   a4paper,
@@ -389,54 +390,68 @@
 \newcommand{\period}[1]{\renewcommand*{\seut@var@str@titlepage@period}{#1}}
 \newcommand{\seut@control@placeholder}[2][\linewidth]{\CJKunderline{\makebox[#1]{#2}}}
 \def\seutplaceholder{\@ifnextchar[\seut@control@placeholder\CJKunderline}
+\newcommand{\seut@var@str@cover@date}{}
+\newcommand{\coverDate}[1]{\renewcommand*{\seut@var@str@cover@date}{#1}}
+\newif\ifseut@use@compressed@cover@background\seut@use@compressed@cover@backgroundfalse
+\newcommand{\useCompressedCoverBackground}{\seut@use@compressed@cover@backgroundtrue}
+\newcommand{\make@cover@field}[1]{\parbox[c][1cm]{3cm}{\centering \zihao{4}\heiti\textbf{#1}}}
+\newcommand{\make@cover@value}[1]{\zihao{-2}\CJKfamily{song} #1}
+\newcommand{\make@cover@title}[1]{\zihao{2}\heiti\textbf{#1}}
 \renewcommand{\maketitle}{%
   \GetFileInfo{seuthesis-2022.cls}
   \hypersetup{
     pdfauthor={\seut@var@str@titlepage@author},
     pdfcreator={\fileversion}
   }
+  \ifseut@use@compressed@cover@background
+    \ThisCenterWallPaper{1.0}{resources/seu-cover-background-compressed.png}
+  \else
+    \ThisCenterWallPaper{1.0}{resources/seu-cover-background-origin.png}
+  \fi
   \begin{titlepage}
-    \vspace*{30pt}
+    \vspace*{1cm}
     \begin{centering}
-      \includegraphics[width=10cm]{\seut@const@path@titlepage@logo}\par
-      \vspace{\seut@const@length@skipbetweenword}\par
-      {\heiti\zihao{1}\textbf{\seut@const@str@titlepage@logotitle}}\par
+      \includegraphics[width=8.57cm]{resources/seu-logo.png}\par
+      \vspace{0.25cm}\par
+      {\includegraphics[width=16.48cm]{resources/seu-title.png}}\par
     \end{centering}
-    \vspace{60pt}
+    \vspace{1.1cm}
     {\centering
     \renewcommand*{\arraystretch}{1.025}
     \setlength{\tabcolsep}{0pt}
     \heiti\zihao{2}
-    \begin{tabular}{p{2.5cm}c}
-      \makebox[2.5cm][r]{\seut@field@str@titlepage@title}
-      & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
+    \begin{tabular}{c}
+      \seutplaceholder[12.5cm]{\make@cover@title{\seut@var@str@titlepage@title@up}} \\ \relax
       \ifcsempty{seut@var@str@titlepage@title@down}{%
-        &
+
       }{%
-        & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
+       \seutplaceholder[12.5cm]{\make@cover@title{\seut@var@str@titlepage@title@down}}}
     \end{tabular}
     \par
     }
 
-    \vspace{46pt}
+    \vspace{0.8cm}
     {\centering
-    \renewcommand*{\arraystretch}{1.08}
+    \renewcommand*{\arraystretch}{1.0}
     \setlength{\tabcolsep}{0pt}
-    \zihao{-2}
     \begin{tabular}{p{3cm}c}
-      \makebox[3cm][r]{\seut@field@str@titlepage@studentnum}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@studentnum} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@author}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@author} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@department}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@department} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@major}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@major} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@supervisor}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@supervisor} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@period}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@period}
+      \make@cover@field{\seut@field@str@titlepage@studentnum}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@studentnum}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@author}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@author}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@department}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@department}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@major}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@major}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@supervisor}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@supervisor}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@period}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@period}}
     \end{tabular}
+
+    \vspace{3.2cm}
+    \CJKfamily{kai}\zihao{4}{\seut@var@str@cover@date}
+
     \par
     }
   \end{titlepage}

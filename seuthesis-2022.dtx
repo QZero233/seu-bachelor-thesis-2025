@@ -986,6 +986,10 @@
 \RequirePackage{doc}
 \RequirePackage{pdfpages}
 %    \end{macrocode}
+% 导入新版封面需要的背景图宏包。
+%    \begin{macrocode}
+\RequirePackage{wallpaper}
+%    \end{macrocode}
 
 % \subsection{页面布局设置}
 % 页边距（2厘米）及装订线（左侧0.5厘米）设置。Word版模版中，上下边距实际上由页眉页脚定义，因此此处无需定义上下页边距。
@@ -1406,6 +1410,16 @@
 % \end{macro}
 % \end{macro}
 % \begin{macro}{\maketitle}
+% 定义一些制作标题页的控制参数和统一样式
+%    \begin{macrocode}
+\newcommand{\seut@var@str@cover@date}{}
+\newcommand{\coverDate}[1]{\renewcommand*{\seut@var@str@cover@date}{#1}}
+\newif\ifseut@use@compressed@cover@background\seut@use@compressed@cover@backgroundfalse
+\newcommand{\useCompressedCoverBackground}{\seut@use@compressed@cover@backgroundtrue}
+\newcommand{\make@cover@field}[1]{\parbox[c][1cm]{3cm}{\centering \zihao{4}\heiti\textbf{#1}}}
+\newcommand{\make@cover@value}[1]{\zihao{-2}\CJKfamily{song} #1}
+\newcommand{\make@cover@title}[1]{\zihao{2}\heiti\textbf{#1}}
+%    \end{macrocode}
 % 制作标题页，首先定义一些PDF Meta-Data。
 %    \begin{macrocode}
 \renewcommand{\maketitle}{%
@@ -1415,57 +1429,60 @@
     pdfcreator={\fileversion}
   }
 %    \end{macrocode}
-% 定义封面页。首先空出30pt（来自于Word模版内空行）的距离，放置东南大学文字Logo以及总标题。
-% \changes{1.1.0}{2024/3/8}{根据2024.1版规范修改封面页尺寸参数。}
+% 根据参数决定使用的背景图
+%    \begin{macrocode}
+  \ifseut@use@compressed@cover@background
+    \ThisCenterWallPaper{1.0}{resources/seu-cover-background-compressed.png}
+  \else
+    \ThisCenterWallPaper{1.0}{resources/seu-cover-background-origin.png}
+  \fi
+%    \end{macrocode}
+% 接下来绘制封面页（暂时是全凭感觉还原的）
 %    \begin{macrocode}
   \begin{titlepage}
-    \vspace*{30pt}
+    \vspace*{1cm}
     \begin{centering}
-      \includegraphics[width=10cm]{\seut@const@path@titlepage@logo}\par
-      \vspace{\seut@const@length@skipbetweenword}\par
-      {\heiti\zihao{1}\textbf{\seut@const@str@titlepage@logotitle}}\par
+      \includegraphics[width=8.57cm]{resources/seu-logo.png}\par
+      \vspace{0.25cm}\par
+      {\includegraphics[width=16.48cm]{resources/seu-title.png}}\par
     \end{centering}
-%    \end{macrocode}
-% 空开60pt（Word内空行），放置论文题目。末尾的 \cs{par}是为了使 \cs{centering}能在 |group| 内生效。
-%    \begin{macrocode}
-    \vspace{60pt}
+    \vspace{1.1cm}
     {\centering
     \renewcommand*{\arraystretch}{1.025}
     \setlength{\tabcolsep}{0pt}
     \heiti\zihao{2}
-    \begin{tabular}{p{2.5cm}c}
-      \makebox[2.5cm][r]{\seut@field@str@titlepage@title}
-      & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
+    \begin{tabular}{c}
+      \seutplaceholder[12.5cm]{\make@cover@title{\seut@var@str@titlepage@title@up}} \\ \relax
       \ifcsempty{seut@var@str@titlepage@title@down}{%
-        &
+
       }{%
-        & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
+       \seutplaceholder[12.5cm]{\make@cover@title{\seut@var@str@titlepage@title@down}}}
     \end{tabular}
     \par
     }
 
-%    \end{macrocode}
-% 空开46pt（Word内空行），放置封面其他信息。
-%    \begin{macrocode}
-    \vspace{46pt}
+    \vspace{0.8cm}
     {\centering
-    \renewcommand*{\arraystretch}{1.08}
+    \renewcommand*{\arraystretch}{1.0}
     \setlength{\tabcolsep}{0pt}
-    \zihao{-2}
     \begin{tabular}{p{3cm}c}
-      \makebox[3cm][r]{\seut@field@str@titlepage@studentnum}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@studentnum} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@author}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@author} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@department}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@department} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@major}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@major} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@supervisor}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@supervisor} \\ \relax
-      \makebox[3cm][r]{\seut@field@str@titlepage@period}
-      & \seutplaceholder[8cm]{\seut@var@str@titlepage@period}
+      \make@cover@field{\seut@field@str@titlepage@studentnum}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@studentnum}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@author}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@author}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@department}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@department}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@major}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@major}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@supervisor}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@supervisor}} \\ \relax
+      \make@cover@field{\seut@field@str@titlepage@period}
+      & \seutplaceholder[8cm]{\make@cover@value{\seut@var@str@titlepage@period}}
     \end{tabular}
+
+    \vspace{3.2cm}
+    \CJKfamily{kai}\zihao{4}{\seut@var@str@cover@date}
+
     \par
     }
   \end{titlepage}

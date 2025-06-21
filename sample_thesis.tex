@@ -25,6 +25,12 @@
 \major{}
 \supervisor{}
 \period{}
+\coverDate{20xx年x月xx日}
+
+% 新版封面的背景图很大，可能会导致编译变慢
+% 如果编译很慢，可以把下面这个命令的注释去掉，使用极致压缩后的封面背景图
+% 注意：定稿时一定记得换回压缩前的封面图，压缩后的封面图会有画质损失的
+% \useCompressedCoverBackground
 
 % 如果使用了AI
 \useAI % 如果没有使用AI，注释掉这一行即可
@@ -188,4 +194,7 @@
 
 “致谢”用三号黑体加粗居中，两字之间空4个半角空格。致谢内容为小四号宋体，1.5倍行距。
 \end{acknowledgement}
+
+\includepdf[pages={1}]{resources/back_cover.pdf}
+
 \end{document}
