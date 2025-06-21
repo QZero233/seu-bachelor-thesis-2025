@@ -1,14 +1,14 @@
 # 东南大学本科毕业设计（论文）XeLaTeX模版
 
-本项目包含东南大学本科毕业设计（论文）XeLaTeX模版（2022-2024届），参考规范为教务处发布的2024年1月版毕业设计（论文）规范。
+本项目包含东南大学本科毕业设计（论文）XeLaTeX模版，参考规范为教务处发布的2025年3月版毕业设计（论文）规范。
 
 若发现问题，请提交Issue进行讨论，欢迎合理的Pull Request。
 
-## 项目主页
+## 项目说明
 
-本项目主页为https://github.com/SuikaXhq/seu-bachelor-thesis-2022
+本项目fork自[SuikaXhq](https://github.com/SuikaXhq)大佬的2022版本模板，原项目链接[https://github.com/SuikaXhq/seu-bachelor-thesis-2022](https://github.com/SuikaXhq/seu-bachelor-thesis-2022)，本项目参考了2025年最新的要求，对封面进行了修改，并添加了AI工具使用情况表相关的模板。
 
-一个参考[Overleaf模版](https://www.overleaf.com/latex/templates/seu-bachelor-thesis-for-class-2022/zsysjvjqzhgx)可供用户快速上手使用。
+本项目依照原项目中的GPL-3.0协议进行开源，如果后续需要另建仓库进行维护请在创建仓库时勾选使用GPL-3.0开源协议。
 
 ## 依赖环境
 
@@ -16,7 +16,7 @@
 
 ## 使用方法
 
-文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022-manual-1.1.0.pdf)。
+文档使用方法的详细介绍请参见[样例论文](https://github.com/QZero233/seu-bachelor-thesis-2025/master/sample_thesis.pdf)和[使用手册](https://github.com/QZero233/seu-bachelor-thesis-2025/master/使用手册/seuthesis-2022-manual-1.1.0.pdf)。
 
 - Windows下：
 
