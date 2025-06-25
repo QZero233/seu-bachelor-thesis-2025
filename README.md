@@ -8,7 +8,7 @@
 
 本项目fork自[SuikaXhq](https://github.com/SuikaXhq)大佬的2022版本模板，原项目链接[https://github.com/SuikaXhq/seu-bachelor-thesis-2022](https://github.com/SuikaXhq/seu-bachelor-thesis-2022)，本项目参考了2025年最新的要求，对封面进行了修改，并添加了AI工具使用情况表相关的模板。
 
-Overleaf模板正在审核当中，后期如果有消息会及时更新。
+一个参考[Overleaf模版](https://www.overleaf.com/latex/templates/southeast-university-bachelor-thesis-2025/pzfzkdjbgwry)可供用户快速上手使用。
 
 **注：本项目依照原项目中的GPL-3.0协议进行开源，如果后续需要另建仓库进行维护请在创建仓库时勾选使用GPL-3.0开源协议。**
 
